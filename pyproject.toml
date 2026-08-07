@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools >= 77.0.3"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "agbtx"
+version = "0.1.0"
+requires-python = ">= 3.14"
+dependencies = [
+    "typer",
+    "Pillow"
+]
+
+description = "A small tool for building and extracting Game Boy Advance textures, inteded for usage with the Rhythm Tengoku decompilation or any derived projects."
+keywords = ["agbtx", "GBA", "Game Boy Advance", "Rhythm Tengoku", "Rhythm Heaven", "Rhythm Paradise"]
+
+readme = "README.md"
+license = "GPL-3.0-or-later"
+license-files = ["LICEN[CS]E*"]
+authors = [
+    { name = "iestyn129" }
+]
+
+[project.urls]
+Homepage = "https://github.com/iestyn129/agbtx"
+Repository = "https://github.com/iestyn129/agbtx.git"
+
+[project.scripts]
+agbtx = "agbtx:app"
