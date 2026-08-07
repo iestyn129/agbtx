@@ -77,6 +77,9 @@ def s(
 	if palette_type not in palette_type_map.keys():
 		raise ValueError(f'Invalid palette type ({palette_type}) specified')
 
+	if output_type not in output_type_map.keys():
+		raise ValueError(f'Invalid output type ({palette_type}) specified')
+
 	if not extract:
 		output_name: str = path.splitext(sprite_path)[0]
 
@@ -96,7 +99,7 @@ def s(
 		img_palette: Palette = Palette.from_rgb888(img.getpalette())
 		img_sprite: Sprite = Sprite.from_image(img)
 
-		match palette_type.lower():
+		match palette_type:
 			case 'rgb888':
 				img_palette.save_as_rgb888(palette_path)
 			case 'brg555': ...
@@ -108,7 +111,38 @@ def s(
 		with open(output_path, 'wb') as fp:
 			fp.write(img_sprite.to_4bpp())
 	else:
-		...
+		base_name: str = path.splitext(sprite_path)[0]
+		palette_ext: str = palette_type_map[palette_type]
+		output_ext: str = output_type_map[output_type]
+
+		if palette_path is None:
+			palette_path = f'{base_name}{palette_ext}'
+
+		if output_path is None:
+			output_path = f'{base_name}{output_ext}'
+
+		if not output_path.endswith(output_ext):
+			output_path += output_ext
+
+		with open(palette_path, 'rb') as fp:
+			palette_data: bytes = fp.read()
+
+		pal: Palette
+		match palette_type:
+			case 'rgb888':
+				pal = Palette.from_rgb888(palette_data)
+			#case 'brg555': ...
+			case 'c':
+				pal = Palette.from_c(palette_data.decode())
+			case 'windows':
+				pal = Palette.from_windows(palette_data)
+			case _:
+				raise ValueError(f'Invalid palette type ({palette_type}) specified')
+
+		with open(sprite_path, 'rb') as fp:
+			sprite_data: bytes = fp.read()
+
+		Sprite.from_4bpp(sprite_data).to_image(pal).save(output_path, output_type)
 
 
 @app.command()

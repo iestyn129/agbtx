@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools >= 77.0.3"]
+requires = ["setuptools >= 83.0.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -12,7 +12,7 @@ dependencies = [
 ]
 
 description = "A small tool for building and extracting Game Boy Advance palettes, textures, and tilemaps, inteded for usage with the Rhythm Tengoku decompilation or any derived projects."
-keywords = ["agbtx", "GBA", "Game Boy Advance", "Rhythm Tengoku", "Rhythm Heaven", "Rhythm Paradise"]
+keywords = ["agbtx", "GBA", "Game Boy Advance", "Rhythm Tengoku", "Rhythm Heaven", "Rhythm Paradise", "Rhythm Heaven Advance", "Rhythm Paradise Advance"]
 
 readme = "README.md"
 license = "GPL-3.0-or-later"
