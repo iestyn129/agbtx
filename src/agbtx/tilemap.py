@@ -32,9 +32,9 @@ class Tilemap:
 
 			return cls(
 				data & 0b1111111111,
-				bool(data & 0b10000000000),
-				bool(data & 0b100000000000),
-				data & 0b1111000000000000
+				bool((data & 0b10000000000) >> 10),
+				bool((data & 0b100000000000) >> 11),
+				(data & 0b1111000000000000) >> 12
 			)
 
 		def to_bytes(self) -> bytes:
